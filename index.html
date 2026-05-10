@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Amor da Minha Vida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ffb3c1;
+            --dark: #2b0d12;
+            --light: #fff5f7;
+            --yt-red: #FF0000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Player escondido */
+        #youtube-audio-player { display: none; }
+
+        #welcome-screen {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle, #47121c 0%, #2b0d12 100%);
+            transition: opacity 1s ease;
+            position: fixed;
+            width: 100%;
+            z-index: 2000;
+        }
+
+        .heart-btn {
+            background: var(--primary);
+            border: none;
+            padding: 20px 40px;
+            color: white;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 20px var(--primary);
+            transition: transform 0.3s;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .heart-btn:hover { transform: scale(1.1); }
+
+        #main-content {
+            display: none;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        header {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--primary); margin-bottom: 10px; }
+
+        .photo-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .photo-card {
+            background: #3d151c;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 450px;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-card:nth-child(odd) { transform: rotate(-1.5deg); }
+        .photo-card:nth-child(even) { transform: rotate(1.5deg); }
+        .photo-card:hover { transform: rotate(0) scale(1.05); }
+
+        .photo-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .photo-caption {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .love-letter {
+            text-align: center;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        /* SEÇÃO DO BOTÃO YOUTUBE */
+        .music-section {
+            text-align: center;
+            margin: 40px 0 60px 0;
+        }
+
+        .yt-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background-color: var(--yt-red);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .yt-button:hover {
+            transform: scale(1.1);
+            background-color: #cc0000;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+        }
+
+        /* CORAÇÕES CAINDO (CHUVA INTENSA) */
+        .heart-float {
+            position: fixed;
+            top: -10%;
+            color: var(--primary);
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        footer { text-align: center; padding: 40px 0; color: var(--primary); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div id="youtube-audio-player"></div>
+
+    <div id="welcome-screen">
+        <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">Para alguém especial...</h1>
+        <button class="heart-btn" onclick="startExperience()">Abrir Surpresa ❤️</button>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1>Olá, Minha Linda!</h1>
+            <p style="font-size: 1.2rem; color: var(--secondary);">Um pequeno espaço para celebrar você.</p>
+        </header>
+
+        <div class="photo-gallery">
+            <div class="photo-card">
+                <img src="image_675494.jpg" alt="Foto 1">
+                <p class="photo-caption">Adoro seu brilho único minha princesa.</p>
+            </div>
+            
+            <div class="photo-card">
+                <img src="image_67548e.jpg" alt="Foto 2">
+                <p class="photo-caption">Cada detalhe seu me faz sorrir.</p>
+            </div>
+
+            <div class="photo-card">
+                <img src="image_675475.jpg" alt="Foto 3">
+                <p class="photo-caption">Minha noiva pra toda a vida.</p>
+            </div>
+
+            <div class="photo-card">
+                <img src="image_675470.jpg" alt="Foto 4">
+                <p class="photo-caption">a mulher mais linda que eu já vi.</p>
+            </div>
+
+            <div class="photo-card">
+                <img src="image_67544f.jpg" alt="Foto 5">
+                <p class="photo-caption">Pra sempre minha noiva.</p>
+            </div>
+        </div>
+
+        <div class="love-letter">
+            <h2 style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--primary);">Uma pequena carta para minha deusa...</h2>
+            <p style="margin-top: 20px; line-height: 1.8;">
+                carta aberta para minha noiva:
+                Amor, não sei como começar a escrever essa carta para você. São tantos sentimentos, tantas emoções, que não dá para descrever com palavras o quão grato e honrado eu sou por ter você na minha vida.
+Mesmo com pouco tempo que a gente se conheceu, eu me apaixono cada vez mais pela pessoa que você é, pela mulher que você é. Você é uma mulher espetacular, e eu me sinto muito agradecido por você estar na minha vida.
+
+Eu agradeço por tudo, tudo, tudo que a gente está construindo. Mesmo de longe, você se esforça para me ver, para fazer as coisas acontecerem, e isso é tão gratificante para mim.
+Repito: não existe nada que defina com palavras o sentimento que eu tenho por você. Desde o dia em que você chegou na minha vida, meu mundo se abriu. Você me fez ter confiança em você e, não só isso, você me faz feliz.
+
+Eu sou um homem de sorte por ter você ao meu lado. E mesmo que a gente ainda não tenha se visto, amor, pode ter certeza de que, a cada dia, serei o melhor homem da sua vida. Serei eterno para você, meu amor, porque eu amo você com todas as minhas forças.
+E pode sempre contar comigo. Estarei aqui sempre, na vitória e na derrota, sempre, sempre, sempre, amor.
+
+EU TE AMO.
+Com gratidão,
+Pedro Boldrin
+
+                
+            </p>
+        </div>
+
+        <div class="music-section">
+            <p style="margin-bottom: 15px; font-style: italic; color: var(--secondary);">Nossa música:</p>
+            <a href="https://www.youtube.com/watch?v=SOJpE1KMUbo&list=RDSOJpE1KMUbo&start_radio=1" target="_blank" class="yt-button">
+                <i class="fab fa-youtube"></i> Ouvir a nossa musica ❤️
+            </a>
+        </div>
+
+        <footer><p>Feito com ❤️ por você</p></footer>
+    </div>
+
+    <script src="https://www.youtube.com/watch?v=JoFkQ7iAQcw&list=RDJoFkQ7iAQcw&start_radio=1"></script>
+
+    <script>
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-audio-player', {
+                height: '0', width: '0',
+                videoId: 'ID_DO_VIDEO_AQUI', 
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'ID_DO_VIDEO_AQUI' }
+            });
+        }
+
+        function startExperience() {
+            if (player && player.playVideo) player.playVideo();
+
+            document.getElementById('welcome-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                startHearts();
+            }, 1000);
+        }
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-float');
+                const heartTypes = ['❤️', '💖', '💕', '💗', '💘', '✨'];
+                heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 25 + 10) + 'px';
+                const duration = (Math.random() * 2 + 3);
+                heart.style.animationDuration = duration + 's';
+                heart.style.opacity = Math.random() * 0.7 + 0.3;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), duration * 1000);
+            }, 100); 
+        }
+    </script>
+</body>
+</html>
